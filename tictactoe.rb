@@ -26,9 +26,9 @@ class Board
 	attr_accessor :board
 	def initialize 
 		@board = {
-			"a1"=> "a1", "a2"=> "a2",  "a3"=> "a3",
-			"b1"=> "b1", "b2"=> "b2",  "b3"=> "b3",
-			"c1"=> "c1", "c2"=> "c2",  "c3"=> "c3"
+			"a1"=> "1", "a2"=> "2",  "a3"=> "3",
+			"b1"=> "4", "b2"=> "5",  "b3"=> "6",
+			"c1"=> "7", "c2"=> "8",  "c3"=> "9"
 		}	
 	end
 
@@ -64,7 +64,7 @@ class Gameplay
 		@b = Board.new
 		@player1 = Player.new
 		@player2 = Player.new
-		@current_turn = 0
+		@current_turn = 1
 	end
 
 	# running 4 different methods defined below
@@ -122,7 +122,7 @@ class Gameplay
 	def ask_input
 		puts "Take a look at the board, please."
 		@b.draw_board
-		puts "#{@player1.name}, make your move please (pick a cell number)."
+		puts "#{@player1.name}, make your move please (pick a number from 1 to 9)."
 		move = gets.chomp
 
 		if move == "a1"
@@ -145,8 +145,8 @@ class Gameplay
 		@current_turn.even? ? turns.player1 : turns.player2
 	end
 
-	def turns(player)
-		whos_turn
+	def turns
+		whose_turn
 		if check_if_taken == true
 			puts "Sorry, this cell is taken, please try again."
 		else 
@@ -157,15 +157,16 @@ class Gameplay
 		check_if_won
 	end
 
-	def whos_turn
+	def whose_turn
 		puts "#{player.name}, it is your turn (#{player.mark})."
 	end
 
 	def win_combos
-		@win =
+		@win = {
 			[[a1, a2, a3], [b1, b2, b3], [c1, c2, c3],
 			[a1, b1, c1], [a2, b2, c2], [a3, b3, c3], 
 			[a1, b2, c3], [a3, b2, c1]]
+		}
 	end
 
 	def check_if_won(player)
@@ -176,16 +177,19 @@ class Gameplay
 		#check if it's a draw
 	end
 
-	# def check_if_taken
-	# 	input = nil
-	# 	until (0..8).include?(input)
-	# 		puts "Please pick a cell on the board."
-	# 		input = gets.chomp
-	# 	end
-	# 	input
-	# 	# check if the cell the user chose is taken or not
-	# 	# if it is then ask for input again
-	# end
+	def check_if_taken
+		(1...9).each do 
+
+
+		# input = nil
+		# until (1...9).include?(input)
+		# 	puts "Please pick a cell on the board."
+		# 	input = gets.chomp
+		# end
+		# input
+		# # check if the cell the user chose is taken or not
+		# # if it is then ask for input again
+	end
 
 	# printing this at the very end when the outcome is either win or tie
 	def gameover_print
